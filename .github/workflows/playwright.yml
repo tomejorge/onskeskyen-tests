@@ -34,6 +34,7 @@ jobs:
         env:
           TEST_LOGIN_EMAIL: ${{ secrets.TEST_LOGIN_EMAIL }}
           TEST_LOGIN_PASSWORD: ${{ secrets.TEST_LOGIN_PASSWORD }}
+          DOTENV_CONFIG_QUIET: true
 
       - name: Upload Playwright report
         if: ${{ failure() }}
