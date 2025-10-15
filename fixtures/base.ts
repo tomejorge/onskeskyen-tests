@@ -1,11 +1,12 @@
 import fs from 'fs';
 import { test as base, expect } from '@playwright/test';
 
-import { CreateWishlistModal, Login, NavBar, UserDashboard, Register, Modal, WelcomeModal } from '../pages';
+import { CreateWishlist, AddWish, Login, NavBar, UserDashboard, Register, Modal, WelcomeModal } from '../pages';
 import { authStorageStatePath } from '../setup/storageState';
 
 type PageFixtures = {
-  createWishlistModal: CreateWishlistModal;
+  createWishlist: CreateWishlist;
+  addWish: AddWish; // Add the Wishlist type to the PageFixtures interface if it's not already included. If it's not, you'll need to add it like this: wishlist: Wishlist
   login: Login;
   navBar: NavBar;
   userDashboard: UserDashboard;
@@ -14,6 +15,7 @@ type PageFixtures = {
   welcomeModal: WelcomeModal;
   uniqueUsername: string;
   testPassword: string;
+  uniqueId: string;
 };
 
 type AuthFixtures = {
@@ -43,8 +45,11 @@ export const test = base.extend<PageFixtures, AuthFixtures>({
     }
   },
 
-  createWishlistModal: async ({ page }, use) => {
-    await use(new CreateWishlistModal(page));
+  createWishlist: async ({ page }, use) => {
+    await use(new CreateWishlist(page));
+  },
+  addWish: async ({ page }, use) => {
+    await use(new AddWish(page));
   },
 
   login: async ({ page }, use) => {
@@ -71,8 +76,11 @@ export const test = base.extend<PageFixtures, AuthFixtures>({
 
   uniqueUsername: async ({}, use) => {
     const timestamp = Date.now();
-    const randomId = Math.random().toString(36).substring(2, 6);
     await use(`testuser${timestamp}@thisisadomain.com`);
+  },
+  uniqueId: async ({}, use) => {
+    const timestamp = Date.now();
+    await use(`${timestamp}`);
   },
   testPassword: async ({}, use) => {
     const password = process.env.TEST_LOGIN_PASSWORD;
@@ -86,4 +94,4 @@ export const test = base.extend<PageFixtures, AuthFixtures>({
 });
 
 export { expect };
-export { CreateWishlistModal, Login, NavBar, UserDashboard, Modal };
+export { CreateWishlist, AddWish, Login, NavBar, UserDashboard, Modal };
