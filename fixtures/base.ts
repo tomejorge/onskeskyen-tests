@@ -6,7 +6,7 @@ import { authStorageStatePath } from '../setup/storageState';
 
 type PageFixtures = {
   createWishlist: CreateWishlist;
-  addWish: AddWish; // Add the Wishlist type to the PageFixtures interface if it's not already included. If it's not, you'll need to add it like this: wishlist: Wishlist
+  addWish: AddWish;
   login: Login;
   navBar: NavBar;
   userDashboard: UserDashboard;
